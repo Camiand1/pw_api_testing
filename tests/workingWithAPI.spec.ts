@@ -36,6 +36,7 @@ test('delete article', async({page, request}) => {
         "article":{"title":"Test title CG","description":"Test description CG","body":"Test body CG","tagList":[]}
       }
     })
+    console.log(await articleResponse.json())
     expect(articleResponse.status()).toEqual(201)
 
     await page.getByText('Global Feed').click()
@@ -65,4 +66,13 @@ test('delete article', async({page, request}) => {
 
     const deleteArticleResponse = await request.delete(`https://conduit-api.bondaracademy.com/api/articles/${slugId}`)
     expect(deleteArticleResponse.status()).toEqual(204)
+
+    await page.request.delete(`https://conduit-api.bondaracademy.com/api/articles/playwright-is-awesome`, {
+      headers: {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/',
+        accept: '*/*',
+        'accept-encoding': 'gzip, deflate, br',
+        Authorization: `Token ghhhg65tyjt468j5h14dy58t4ty54ty68j436yj5468j4`,
+      }
+    });
   })
